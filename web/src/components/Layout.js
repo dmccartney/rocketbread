@@ -16,6 +16,64 @@ import { Link as RouterLink } from "react-router-dom";
 import { useRef } from "react";
 import { HelpOutline } from "@mui/icons-material";
 
+function FAQ() {
+  return (
+    <Stack spacing={1} sx={{ m: 1 }}>
+      <Typography variant="h6">What is this?</Typography>
+      <Typography variant="body2">
+        This is a tool for{" "}
+        <Link
+          href="https://rocketpool.net/"
+          target="_blank"
+          color="inherit"
+          underline="always"
+        >
+          Rocket Pool
+        </Link>{" "}
+        operators to analyze their{" "}
+        <Link
+          href="https://github.com/rocket-pool/rewards-trees"
+          target="_blank"
+          color="inherit"
+          underline="always"
+        >
+          periodic rewards
+        </Link>
+        .
+      </Typography>
+      <Typography variant="h6">How does it work?</Typography>
+      <Typography variant="body2">
+        It loads all finalized rewards from the chain + IPFS. And it allows you
+        to analyze unfinalized rewards from JSON files.
+      </Typography>
+      <Typography variant="h6">Who made this?</Typography>
+      <Typography variant="body2">
+        This unofficial tool was made by{" "}
+        <Link
+          href="https://dmccartney.com"
+          target="_blank"
+          color="inherit"
+          underline="always"
+        >
+          dmccartney
+        </Link>
+        .
+      </Typography>
+      <Typography variant="h6">Where's the source?</Typography>
+      <Typography variant="body2">
+        <Link
+          href="https://github.com/dmccartney/rocketbread"
+          target="_blank"
+          color="inherit"
+          underline="always"
+        >
+          github.com/dmccartney/rocketbread
+        </Link>
+      </Typography>
+    </Stack>
+  );
+}
+
 function OpenJsonFileButton() {
   let fileRef = useRef();
   let { clear, set, file } = useLocalJsonFile();
@@ -71,54 +129,7 @@ export default function Layout({ breadcrumbs = [], children }) {
             ) : (
               <Stack direction="row" alignItems="center" spacing={1}>
                 <span>Rocket Bread</span>
-                <Tooltip
-                  title={
-                    <Stack spacing={1} sx={{ m: 1 }}>
-                      <Typography variant="h6">What is this?</Typography>
-                      <Typography variant="body2">
-                        This is a tool for{" "}
-                        <Link
-                          href="https://rocketpool.net/"
-                          target="_blank"
-                          color="inherit"
-                          underline="always"
-                        >
-                          Rocket Pool
-                        </Link>{" "}
-                        operators to analyze their{" "}
-                        <Link
-                          href="https://github.com/rocket-pool/rewards-trees"
-                          target="_blank"
-                          color="inherit"
-                          underline="always"
-                        >
-                          periodic rewards
-                        </Link>
-                        .
-                      </Typography>
-                      <Typography variant="h6">How does it work?</Typography>
-                      <Typography variant="body2">
-                        It loads all finalized rewards from the chain + IPFS.
-                        And it allows you to analyze unfinalized rewards from
-                        JSON files.
-                      </Typography>
-                      <Typography variant="h6">Who made this?</Typography>
-                      <Typography variant="body2">
-                        This unofficial tool was made by{" "}
-                        <Link
-                          href="https://dmccartney.com"
-                          target="_blank"
-                          color="inherit"
-                          underline="always"
-                        >
-                          dmccartney
-                        </Link>
-                        .
-                      </Typography>
-                    </Stack>
-                  }
-                  sx={{ cursor: "help" }}
-                >
+                <Tooltip title={<FAQ />} sx={{ cursor: "help" }}>
                   <HelpOutline color="disabled" fontSize="inherit" />
                 </Tooltip>
               </Stack>
