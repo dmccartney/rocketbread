@@ -1,6 +1,8 @@
 import RocketStorageK from "./generated/contracts/RocketStorage.json";
 import RocketRewardsPoolK from "./generated/contracts/RocketRewardsPool.json";
 import RocketMerkleDistributorMainnetK from "./generated/contracts/RocketMerkleDistributorMainnet.json";
+import RocketDAOProtocolSettingsNetworkK from "./generated/contracts/RocketDAOProtocolSettingsNetwork.json";
+import RocketDAONodeTrustedK from "./generated/contracts/RocketDAONodeTrusted.json";
 
 const contracts = {
   RocketStorage: {
@@ -14,6 +16,16 @@ const contracts = {
   RocketMerkleDistributorMainnet: {
     address: "0x7eccbbd05830edf593d30005b8f69e965af4d59f",
     abi: RocketMerkleDistributorMainnetK.abi,
+  },
+  RocketDAOProtocolSettingsNetwork: {
+    // getContractAddress("rocketDAOProtocolSettingsNetwork")
+    address: "0x320f3aAB9405e38b955178BBe75c477dECBA0C27",
+    abi: RocketDAOProtocolSettingsNetworkK.abi,
+  },
+  RocketDAONodeTrusted: {
+    // getContractAddress("rocketDAONodeTrusted")
+    address: "0xb8e783882b11Ff4f6Cef3C501EA0f4b960152cc9",
+    abi: RocketDAONodeTrustedK.abi,
   },
 };
 
