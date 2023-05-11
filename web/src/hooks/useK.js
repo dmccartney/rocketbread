@@ -133,21 +133,25 @@ function makeWriters(kName, k) {
 // It produces a mapping of { [eventName]: (config) => { ... } },
 function makeEventFinders(kName, k) {
   const kInterface = new ethers.utils.Interface(k.abi);
+  const kAddresses = Array.isArray(k.address) ? k.address : [k.address];
   return _.chain(kInterface.fragments)
     .filter((f) => f.type === "event")
     .keyBy("name")
     .mapValues((event, eventName) => (config) => {
       let provider = useProvider();
-      let kInstance = useContract({
-        addressOrName: k.address,
-        contractInterface: kInterface,
-        signerOrProvider: provider,
-      });
+      // WARN: this is rule-of-hooks safe only if the address array is static.
+      let kInstances = kAddresses.map((kAddress) =>
+        useContract({
+          addressOrName: kAddress,
+          contractInterface: kInterface,
+          signerOrProvider: provider,
+        })
+      );
       let chainId = provider.network.chainId;
       let queryKey = [
         "findContractEvents",
         chainId,
-        k.address,
+        kAddresses.join(),
         eventName,
         config.from,
         config.to,
@@ -156,11 +160,15 @@ function makeEventFinders(kName, k) {
       return useQuery(
         queryKey,
         async () =>
-          kInstance.queryFilter(
-            kInstance.filters[eventName](...config.args),
-            config.from,
-            config.to
-          ),
+          Promise.all(
+            kInstances.map((kInstance) =>
+              kInstance.queryFilter(
+                kInstance.filters[eventName](...config.args),
+                config.from,
+                config.to
+              )
+            )
+          ).then((res) => _.concat(...res)),
         {
           // TODO: consider introducing a `select` transform to decode args
           cacheTime: config.cacheTime,
