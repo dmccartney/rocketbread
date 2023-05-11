@@ -10,7 +10,10 @@ const contracts = {
     abi: RocketStorageK.abi,
   },
   RocketRewardsPool: {
-    address: "0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1",
+    address: [
+      "0xA805d68b61956BC92d556F2bE6d18747adAeEe82",
+      "0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1"
+    ],
     abi: RocketRewardsPoolK.abi,
   },
   RocketMerkleDistributorMainnet: {
