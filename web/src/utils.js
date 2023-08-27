@@ -22,23 +22,6 @@ export function BNSortComparator(a, b) {
   return -1;
 }
 
-// convert "1234.123415123123123123" into "1,234.1234"
-export function trimValue(
-  amountEthish,
-  { maxDecimals = 4, maxLength = 11 } = {}
-) {
-  if (amountEthish.indexOf(".") !== -1) {
-    amountEthish = amountEthish.slice(
-      0,
-      amountEthish.indexOf(".") + maxDecimals + (maxDecimals ? 1 : 0)
-    );
-  }
-  if (amountEthish.length <= maxLength) {
-    return `${ethers.utils.commify(amountEthish)}`;
-  }
-  return `${ethers.utils.commify(amountEthish.substring(0, maxLength))}…`;
-}
-
 // Returns the sha1 of the provided array buffer asa hex string.
 export async function makeSha1Hash(buffer) {
   let hashBuffer = await crypto.subtle.digest("SHA-1", buffer);
