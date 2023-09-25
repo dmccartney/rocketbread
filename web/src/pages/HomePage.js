@@ -58,7 +58,9 @@ function FinalizedIntervals() {
       )}
       {snapshots && (
         <Stack spacing={1} direction="column-reverse">
-          {snapshots.map(({ args: [rewardIndex, , , endTime] }) => (
+          {snapshots
+            .sort((a,b) => a.blockNumber - b.blockNumber)
+            .map(({ args: [rewardIndex, , , endTime] }) => (
             <Card key={rewardIndex} elevation={5}>
               <CardActionArea component={Link} to={`/finalized/${rewardIndex}`}>
                 <CardHeader
