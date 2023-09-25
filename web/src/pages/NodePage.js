@@ -7,7 +7,6 @@ import {
   BNSortComparator,
   rocketscanUrl,
   shortenAddress,
-  trimValue,
 } from "../utils";
 import { OpenInNew } from "@mui/icons-material";
 import { DataGrid } from "@mui/x-data-grid";
@@ -17,6 +16,7 @@ import { useState } from "react";
 import useFetchJSONZST from "../hooks/useFetchJSONZST";
 import { ethers } from "ethers";
 import { Link } from "react-router-dom";
+import TrimmedCell from "../components/TrimmedCell";
 
 // const IPFS_BASE = "https://ipfs.io";
 const IPFS_BASE = "https://cloudflare-ipfs.com";
@@ -94,9 +94,9 @@ const USER_COLS = [
         ethers.BigNumber.from(oracleDaoRpl)
       );
     },
-    valueFormatter: ({ value }) => {
-      return trimValue(ethers.utils.formatUnits(value));
-    },
+    renderCell: (params) => (
+      <TrimmedCell value={params.value || 0} />
+    ),
   },
   {
     field: "collateralRpl",
@@ -110,9 +110,9 @@ const USER_COLS = [
       }
       return ethers.BigNumber.from(value);
     },
-    valueFormatter: ({ value }) => {
-      return trimValue(ethers.utils.formatUnits(value));
-    },
+    renderCell: (params) => (
+      <TrimmedCell value={params.value || 0} />
+    ),
   },
   {
     field: "oracleDaoRpl",
@@ -126,9 +126,9 @@ const USER_COLS = [
       }
       return ethers.BigNumber.from(value);
     },
-    valueFormatter: ({ value }) => {
-      return trimValue(ethers.utils.formatUnits(value));
-    },
+    renderCell: (params) => (
+      <TrimmedCell value={params.value || 0} />
+    ),
   },
   {
     field: "smoothingPoolEth",
@@ -142,9 +142,9 @@ const USER_COLS = [
       }
       return ethers.BigNumber.from(value);
     },
-    valueFormatter: ({ value }) => {
-      return trimValue(ethers.utils.formatUnits(value));
-    },
+    renderCell: (params) => (
+      <TrimmedCell value={params.value || 0} />
+    ),
   },
 ];
 const USER_COL_WIDTH =

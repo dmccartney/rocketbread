@@ -18,11 +18,12 @@ import { ResponsiveContainer, Tooltip, Treemap } from "recharts";
 import deepPurple from "@mui/material/colors/deepPurple";
 import { DataGrid } from "@mui/x-data-grid";
 import WalletChip from "./WalletChip";
-import { BNSortComparator, etherscanUrl, trimValue } from "../utils";
+import { BNSortComparator, etherscanUrl } from "../utils";
 import { useEnsAddress } from "wagmi";
 import moment from "moment/moment";
 import { useSearchParams } from "react-router-dom";
 import IsClaimedIcon from "./IsClaimedIcon";
+import TrimmedCell from "./TrimmedCell";
 
 export default function RewardSummary({ rewards, snapshot = null }) {
   let [pageSize, setPageSize] = useState(10);
@@ -252,9 +253,9 @@ export default function RewardSummary({ rewards, snapshot = null }) {
                 ethers.BigNumber.from(oracleDaoRpl)
               );
             },
-            valueFormatter: ({ value }) => {
-              return trimValue(ethers.utils.formatUnits(value));
-            },
+            renderCell: (params) => (
+              <TrimmedCell value={params.value || 0} />
+            ),
           },
           {
             field: "collateralRpl",
@@ -265,9 +266,9 @@ export default function RewardSummary({ rewards, snapshot = null }) {
             valueGetter: ({ value }) => {
               return ethers.BigNumber.from(value);
             },
-            valueFormatter: ({ value }) => {
-              return trimValue(ethers.utils.formatUnits(value));
-            },
+            renderCell: (params) => (
+              <TrimmedCell value={params.value || 0} />
+            ),
           },
           {
             field: "oracleDaoRpl",
@@ -278,9 +279,9 @@ export default function RewardSummary({ rewards, snapshot = null }) {
             valueGetter: ({ value }) => {
               return ethers.BigNumber.from(value);
             },
-            valueFormatter: ({ value }) => {
-              return trimValue(ethers.utils.formatUnits(value));
-            },
+            renderCell: (params) => (
+              <TrimmedCell value={params.value || 0} />
+            ),
           },
           {
             field: "smoothingPoolEth",
@@ -291,9 +292,9 @@ export default function RewardSummary({ rewards, snapshot = null }) {
             valueGetter: ({ value }) => {
               return ethers.BigNumber.from(value);
             },
-            valueFormatter: ({ value }) => {
-              return trimValue(ethers.utils.formatUnits(value));
-            },
+            renderCell: (params) => (
+              <TrimmedCell value={params.value || 0} />
+            ),
           },
         ]}
         initialState={{
